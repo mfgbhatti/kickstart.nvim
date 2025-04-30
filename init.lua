@@ -917,12 +917,14 @@ require('lazy').setup({
     name = 'catppuccin',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
-        },
-      }
+    -- NOTE: not working with catppuccin 
+    --   ---@diagnostic disable-next-line: missing-fields
+    --   require('tokyonight').setup { -- original line for tokyonight
+    --   require('catppuccin').setup {
+    --     styles = {
+    --       comments = { italic = false }, -- Disable italics in comments
+    --    },
+    -- }
 
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
