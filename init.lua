@@ -168,6 +168,9 @@ vim.o.confirm = true
 
 -- Exapnd tabs
 vim.o.expandtab = true
+vim.o.tabstop = 2
+vim.o.softtabstop = 2
+vim.o.shiftwidth = 2
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -221,6 +224,17 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.hl.on_yank()
   end,
 })
+
+-- Append modeline after last line in buffer.
+-- Use string.format and string.gsub to handle '%%s' modeline in LaTeX files.
+local function append_modeline()
+  local expandtab_str = vim.o.expandtab and '' or 'no'
+  local modeline = string.format(' vim: set ts=%d sts=%d sw=%d %set :', vim.o.tabstop, vim.o.softtabstop, vim.o.shiftwidth, expandtab_str)
+  modeline = string.gsub(vim.o.commentstring, '%%s', modeline)
+  vim.api.nvim_buf_set_lines(0, -1, -1, true, { modeline })
+end
+
+vim.keymap.set('n', '<Leader>ml', append_modeline, { silent = true })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -1056,3 +1070,4 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+--  vim: set ts=2 sts=2 sw=2 et :
