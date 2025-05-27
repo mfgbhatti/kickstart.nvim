@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -250,8 +250,18 @@ rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
-
+  -- {
+  --   'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+  --   opts = {
+  --     on_space_options = { -- A table of vim options when spaces are detected
+  --       ['expandtab'] = true,
+  --       ['tabstop'] = 'detected', -- If the option value is 'detected', The value is set to the automatically detected indent size.
+  --       ['softtabstop'] = 'detected',
+  --       ['shiftwidth'] = 'detected',
+  --     },
+  --   },
+  -- },
+  'Darazaki/indent-o-matic',
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
@@ -673,16 +683,18 @@ require('lazy').setup({
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      --
       local servers = {
         -- clangd = {},
         -- gopls = {},
         pyright = {},
+        -- NOTE: install manually django-template-lsp from :MasonInstall
+        html = {}, -- alias for html-lsp
+        cssls = {}, -- alias css-lsp
+        css_variables = {}, -- alias for css-variables-language-server
+        ts_ls = {}, -- alias for typescript-language-server
         markdown_oxide = {},
-        html = {},
-        cssls = {},
-        css_variables = {},
-        -- django-template-lsp = {},
-        --yaml-language-server
+        -- alias for yaml-language-server
         yamlls = {
           yaml = {
             -- other settings. note this overrides the lspconfig defaults.
@@ -735,6 +747,7 @@ require('lazy').setup({
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
         'black',
+        'eslint',
         'isort',
         'shellcheck',
         'shfmt',
