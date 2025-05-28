@@ -688,12 +688,15 @@ require('lazy').setup({
         -- clangd = {},
         -- gopls = {},
         pyright = {},
+        eslint = {}, -- eslint as lsp
         -- NOTE: install manually django-template-lsp from :MasonInstall
         html = {}, -- alias for html-lsp
         cssls = {}, -- alias css-lsp
         css_variables = {}, -- alias for css-variables-language-server
         ts_ls = {}, -- alias for typescript-language-server
         markdown_oxide = {},
+        emmet_language_server = {},
+        emmet_ls = {},
         -- alias for yaml-language-server
         yamlls = {
           yaml = {
@@ -747,7 +750,8 @@ require('lazy').setup({
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
         'black',
-        'eslint',
+        'eslint_d', -- eslint as linter
+        'markdownlint',
         'isort',
         'shellcheck',
         'shfmt',
